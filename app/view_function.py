@@ -5,7 +5,11 @@ from flask import render_template, flash, request, redirect, url_for, session, g
 def user():
     return render_template("user.html",name=session.get('name'), known=session.get('known', False))
 
-
+@app.route("/logout")
+def logout():
+    session['name']=None
+    session['known']=False
+    return redirect(url_for("user"))
 
 @app.route("/login.html", methods = ("GET","POST"))
 @app.route("/login",methods=('GET', "POST"))
