@@ -5,7 +5,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     login = db.Column(db.String(20), unique = True)
     passwords = db.relationship("Password",uselist=False, backref="user")
-
+    posts=db.relationship("Post",backref="user",lazy="dynamic")
     def __repr__(self):
         return "login={} with id {}".format(self.login,self.id)
 
@@ -20,3 +20,11 @@ class Password(db.Model):
 
     def __repr__(self):
         return "user_id = {} and paswword = {}".format(self.user_id, self.pas)
+
+
+class Post(db.Model):
+    __tablename__ = "posts"
+    id = db.Column(db.Integer, primary_key=True)
+    post = db.Column(db.String())
+    date = db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
