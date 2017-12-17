@@ -6,7 +6,9 @@
 	<link rel="stylesheet" href= {{url_for("static",filename="style.css")}}>
 </head>
 <body>
-
+	{%for message in get_flashed_messages()%}
+	{{message}}
+	{%endfor%}
   <form method="post" action="" class="login">
     <p>
       <label for="login">Логин:</label>

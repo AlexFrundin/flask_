@@ -12,9 +12,9 @@ manage.add_command('db', MigrateCommand)
 
 
 
-def start():
-    arg=input("Enter your command->")
-    manage.run(default_command="{}".format(arg))
+# def start():
+#     arg=input("Enter your command->")
+#     manage.run(default_command="{}".format(arg))
 
 if __name__ == '__main__':
     #start()
