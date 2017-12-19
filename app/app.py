@@ -7,8 +7,6 @@ app.config.from_object('config.DevelopConfig')
 from view_function import *
 db = SQLAlchemy(app)
 
-
-
 migrate = Migrate(app,db)
 from db_models import *
 

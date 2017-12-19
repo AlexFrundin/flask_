@@ -9,9 +9,6 @@ class User(db.Model):
     def __repr__(self):
         return "login={} with id {}".format(self.login,self.id)
 
-
-
-
 class Password(db.Model):
     __tablename__="passwords"
     id=db.Column(db.Integer,primary_key = True )

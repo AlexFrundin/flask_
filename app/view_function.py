@@ -1,6 +1,11 @@
 from app import app
 from flask import render_template, flash, request, redirect, url_for, session, g
 
+@app.route("/")
+def index():
+    from db_models import User, db, Password
+    users = User.query.all()
+    return render_template("index.html", logins=users)
 @app.route("/user")
 def user():
     return render_template("user.html",name=session.get('name'), known=session.get('known', False))
@@ -20,8 +25,8 @@ def login():
     if request.method=="POST":
         login=request.form.get('login','')
         pasw=request.form.get('password','')
-        id = User.query.filter_by(login=login).first()
-        if (Password.query.filter_by(pas=pasw, user= id).first()):
+        my_user = User.query.filter_by(login=login).first()
+        if (Password.query.filter_by(pas=pasw, user= my_user).first()):
             print("*"*60)
             session['known']=True
             session['name']=login
@@ -37,7 +42,14 @@ def registration():
         pasw=request.form.get('password','')
         if not User.query.filter_by(login=login).first():
             print("i'm where!")
-            db.session.add(Password(pas=pasw, user=User(login=login)))
+
+            new_user = User(login=login)
+
+            pas=Password(pas=pasw,user=new_user)
+
+            #db.session.add(Password(pas=pasw, user=User(login=login)))
+            db.session.add(user)
+            db.session.add(pas)
             db.session.commit()
             session['known']=True
             session['name']=login
